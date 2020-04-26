@@ -20,6 +20,8 @@ public class NoteProcessor : MonoBehaviour
 
     public KeyCode keyToPress;
 
+    public bool wasHit;
+
     
 
     // Start is called before the first frame update
@@ -50,11 +52,14 @@ public class NoteProcessor : MonoBehaviour
 
         if (Input.GetKeyDown(keyToPress)) {
             if(canBePressed) {
-                gameObject.SetActive(false);
+                GameManager.instance.NoteHit(distance_);
+                wasHit = true;
+                StartCoroutine(FadeToAndKill(0.0f, 0.2f));
             }
         }
 
     }
+
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Activator") {
@@ -63,8 +68,25 @@ public class NoteProcessor : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if(other.tag == "Activator") {
-            canBePressed = false;
-        }
+        if (!wasHit) {
+            if(other.tag == "Activator") {
+                canBePressed = false;
+                GameManager.instance.NoteMiss();
+                StartCoroutine(FadeToAndKill(0.0f, 1.0f));
+            }
+        } 
     }
+
+
+    IEnumerator FadeToAndKill(float aValue, float aTime)
+     {
+         float alpha = transform.GetComponent<SpriteRenderer>().material.color.a;
+         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+         {
+             Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+             transform.GetComponent<SpriteRenderer>().material.color = newColor;
+             yield return null;
+         }
+         Destroy(gameObject);
+     }
 }

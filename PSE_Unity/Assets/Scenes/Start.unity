@@ -153,6 +153,13 @@ MonoBehaviour:
   musicTrack: {fileID: 1498953240}
   startPlaying: 0
   noteSpawner: {fileID: 1554773331}
+  currentScore: 0
+  scorePerNote: 100
+  missPenalty: 20
+  hits: 0
+  misses: 0
+  scoreText: {fileID: 1791990394}
+  hitsText: {fileID: 2046179001}
 --- !u!4 &35917315
 Transform:
   m_ObjectHideFlags: 0
@@ -177,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42740290}
   - component: {fileID: 42740289}
+  - component: {fileID: 42740293}
   - component: {fileID: 42740292}
   - component: {fileID: 42740291}
   m_Layer: 0
@@ -287,6 +295,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &42740293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42740288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c37082503a1c4943aefe649f32a616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultImage: {fileID: 21300000, guid: 1bbda9210988dfd4db252a09838d254f, type: 3}
+  pressedImage: {fileID: 21300000, guid: cacc39dd2a4e88a43aadeddd73e9b1e2, type: 3}
+  keyToPress: 113
 --- !u!1 &238653395
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +442,7 @@ MonoBehaviour:
   travelPerSec: 0
   canBePressed: 0
   keyToPress: 101
+  wasHit: 0
 --- !u!212 &246534449
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -572,6 +596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 335185281}
   - component: {fileID: 335185280}
+  - component: {fileID: 335185284}
   - component: {fileID: 335185283}
   - component: {fileID: 335185282}
   m_Layer: 0
@@ -682,6 +707,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &335185284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335185279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c37082503a1c4943aefe649f32a616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultImage: {fileID: 21300000, guid: ed2984e24d5df6f46a80ead6ad2964fa, type: 3}
+  pressedImage: {fileID: 21300000, guid: 8f47ff751b3bdec48862adf0100c74fa, type: 3}
+  keyToPress: 101
 --- !u!1 &450328914
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450328916}
   - component: {fileID: 450328915}
+  - component: {fileID: 450328919}
   - component: {fileID: 450328918}
   - component: {fileID: 450328917}
   m_Layer: 0
@@ -802,6 +843,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &450328919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450328914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c37082503a1c4943aefe649f32a616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultImage: {fileID: 21300000, guid: ad187f74f2d0cc4499f39a0267b9eda8, type: 3}
+  pressedImage: {fileID: 21300000, guid: 18bf226de2d59284e904c26430f659c9, type: 3}
+  keyToPress: 97
 --- !u!1 &504906914
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,6 +913,7 @@ MonoBehaviour:
   travelPerSec: 0
   canBePressed: 0
   keyToPress: 97
+  wasHit: 0
 --- !u!212 &504906917
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1188,6 +1245,7 @@ MonoBehaviour:
   travelPerSec: 0
   canBePressed: 0
   keyToPress: 100
+  wasHit: 0
 --- !u!212 &604633206
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1952,6 +2010,7 @@ MonoBehaviour:
   travelPerSec: 0
   canBePressed: 0
   keyToPress: 113
+  wasHit: 0
 --- !u!212 &1405735684
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2300,7 +2359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1605572179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2349,8 +2408,8 @@ Canvas:
   m_GameObject: {fileID: 1605572178}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2691,6 +2750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1954822627}
   - component: {fileID: 1954822626}
+  - component: {fileID: 1954822630}
   - component: {fileID: 1954822629}
   - component: {fileID: 1954822628}
   m_Layer: 0
@@ -2801,6 +2861,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &1954822630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954822625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c37082503a1c4943aefe649f32a616c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultImage: {fileID: 21300000, guid: c3c13b1f8baa5dd4a86d3dc186668178, type: 3}
+  pressedImage: {fileID: 21300000, guid: 2d10ec486261df445b73774ff82f1b69, type: 3}
+  keyToPress: 100
 --- !u!1 &1971809611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3121,7 +3196,7 @@ GameObject:
   - component: {fileID: 2046179002}
   - component: {fileID: 2046179001}
   m_Layer: 5
-  m_Name: MultiplierText
+  m_Name: HitsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3177,7 +3252,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Multiplier: x1'
+  m_Text: 'Hits: 0 | Misses: 0'
 --- !u!222 &2046179002
 CanvasRenderer:
   m_ObjectHideFlags: 0
