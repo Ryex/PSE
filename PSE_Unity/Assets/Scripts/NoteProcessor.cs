@@ -22,6 +22,9 @@ public class NoteProcessor : MonoBehaviour
 
     public bool wasHit;
 
+
+    public GameObject hitEffect, goodEffect, perfectEffect, missEffect;
+
     
 
     // Start is called before the first frame update
@@ -52,7 +55,22 @@ public class NoteProcessor : MonoBehaviour
 
         if (Input.GetKeyDown(keyToPress)) {
             if(canBePressed) {
-                GameManager.instance.NoteHit(distance_);
+
+                NoteQuality quality;
+                GameObject effectPrefab;
+                if (distance_ > NoteHit.GoodThresh){
+                    quality = NoteQuality.Normal;
+                    effectPrefab = hitEffect;
+                } else if (distance_ > NoteHit.PerfectThresh){
+                    quality = NoteQuality.Good;
+                    effectPrefab = goodEffect;
+                } else {
+                    quality = NoteQuality.Perfect;
+                    effectPrefab = perfectEffect;
+                }
+                
+                Instantiate(effectPrefab, transform.position, effectPrefab.transform.rotation);
+                GameManager.instance.NoteHit(quality);
                 wasHit = true;
                 StartCoroutine(FadeToAndKill(0.0f, 0.2f));
             }
@@ -72,6 +90,7 @@ public class NoteProcessor : MonoBehaviour
             if(other.tag == "Activator") {
                 canBePressed = false;
                 GameManager.instance.NoteMiss();
+                Instantiate(missEffect, transform.position, missEffect.transform.rotation);
                 StartCoroutine(FadeToAndKill(0.0f, 1.0f));
             }
         } 

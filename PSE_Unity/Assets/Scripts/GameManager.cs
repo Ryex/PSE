@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct NoteHit {
+    public const float NormalThresh = 0.5f;
+    public const float GoodThresh = 0.25f;
+    public const float PerfectThresh = 0.05f;
+}
+
+public enum NoteQuality {
+    Normal,
+    Good,
+    Perfect
+}
+
 public class GameManager : MonoBehaviour
 {
 
@@ -17,10 +29,15 @@ public class GameManager : MonoBehaviour
 
     public int currentScore;
     public int scorePerNote = 100;
-    public int missPenalty = 20;
+    public int scorePerGoodNote = 150;
+    public int scorePerPerfectNote = 250;
+    public int missPenalty = 75;
 
-    public int hits;
-    public int misses;
+    public int totalHits;
+    public int goodHits;
+    public int normalHits;
+    public int perfectHits;
+    public int totalMisses;
 
     public Text scoreText;
     public Text hitsText;
@@ -59,18 +76,35 @@ public class GameManager : MonoBehaviour
 
     public void setText() {
         scoreText.text = $"Score: {currentScore}";
-        hitsText.text = $"Hits: {hits} | Misses: {misses}";
+        hitsText.text = $"Hits: {totalHits} | Misses: {totalMisses}";
     }
 
-    public void NoteHit(float dist) {
+    public void NoteHit(NoteQuality quality) {
         Debug.Log("Note HIT");
-        currentScore += scorePerNote;
-        hits += 1;
+
+        switch (quality) {
+            case NoteQuality.Normal:
+                currentScore += scorePerNote;
+                normalHits += 1;
+                break;
+            case NoteQuality.Good:
+                currentScore += scorePerGoodNote;
+                goodHits += 1;
+                break;
+            case NoteQuality.Perfect:
+                currentScore += scorePerPerfectNote;
+                perfectHits += 1;
+                break;
+        }
+
+        totalHits += 1;
+
+
     }
 
     public void NoteMiss() {
         Debug.Log("Note MISS");
         currentScore -= missPenalty;
-        misses += 1;
+        totalMisses += 1;
     }
 }

@@ -47,22 +47,14 @@ public class NoteSpawner : MonoBehaviour
     public double leadBeatsDefault;
     public bool trackPlaying;
 
-    public NoteProcessor upArrow;
-    public GameObject upTarget;
-    public NoteProcessor rightArrow;
-    public GameObject rightTarget;
-    public NoteProcessor downArrow;
-    public GameObject downTarget;
-    public NoteProcessor leftArrow;
-    public GameObject leftTarget;
-    public NoteProcessor upLeftArrow;
-    public GameObject upLeftTarget;
-    public NoteProcessor upRightArrow;
-    public GameObject upRightTarget;
-    public NoteProcessor downLeftArrow;
-    public GameObject downLeftTarget;
-    public NoteProcessor downRightArrow;
-    public GameObject downRightTarget;
+    public GameObject upTarget, rightTarget, downTarget, leftTarget, 
+        upLeftTarget, upRightTarget, downLeftTarget, downRightTarget;
+
+    public NoteProcessor upArrow, rightArrow, downArrow, leftArrow, 
+        upLeftArrow, upRightArrow, downLeftArrow, downRightArrow;
+    
+
+    public GameObject hitEffect, goodEffect, perfectEffect, missEffect;
 
     private double updateRate;
 
@@ -182,6 +174,11 @@ public class NoteSpawner : MonoBehaviour
                 noteObj.leadTimeBeats = nextNote.Value.leadBeats;
                 noteObj.setupStartValues();
                 noteObj.gameObject.SetActive(true);
+
+                noteObj.hitEffect = hitEffect;
+                noteObj.goodEffect = goodEffect;
+                noteObj.perfectEffect = perfectEffect;
+                noteObj.missEffect = missEffect;
             }
             
             popNextNote();
