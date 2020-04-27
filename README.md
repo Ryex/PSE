@@ -4,7 +4,7 @@
 
 ## Completed
 
-Base game mechanics (arrow movement, keyboard input, timing).
+Base game mechanics, including arrow movement, keyboard input, and note timing. Once a note crosses a colored block, the user can enter the keyboard direction and increase their score.
   
 ## TODO
   
