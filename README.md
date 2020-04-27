@@ -3,6 +3,8 @@
 # Current Game Progress
 
 ## Completed
+
+Base game mechanics (arrow movement, keyboard input, timing).
   
 ## TODO
   
