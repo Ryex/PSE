@@ -42,6 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Buttons
+    uniqueID: 1236240975
+    locked: 0
   - name: Arrows
     uniqueID: 1376137419
+    locked: 0
+  - name: EffectParticles
+    uniqueID: 107809577
+    locked: 0
+  - name: Effects
+    uniqueID: 1694669823
+    locked: 0
+  - name: UI
+    uniqueID: 556956939
     locked: 0

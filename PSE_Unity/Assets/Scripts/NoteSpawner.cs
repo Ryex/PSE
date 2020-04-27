@@ -189,18 +189,11 @@ public class NoteSpawner : MonoBehaviour
     void Update()
     {
         
-        if(!trackPlaying) {
-
-            // if(Input.anyKeyDown) {
-            //     trackPlaying = true;
-            //     // TODO PLAY TRACK
-            // }
-        } else {
-            if (nextNote.HasValue && timeInSong >= nextNote.Value.time) {
-                Debug.Log("Creating note: Song progress [" + timeInSong + "] note schedule time [" + nextNote.Value.time + "]");
+        if(trackPlaying) {
+            while (nextNote.HasValue && timeInSong >= nextNote.Value.time) {
+                Debug.Log($"Creating note: Song progress [{timeInSong}] note schedule time [{nextNote.Value.time}]");
                 createNextNote();
-                
-            }
+            }                
         }
 
     }
