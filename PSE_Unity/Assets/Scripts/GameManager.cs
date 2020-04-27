@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text hitsText;
 
+    public TextFadeAndBlink pressToStartText;
+
 
 
     // Start is called before the first frame update
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
             if (Input.anyKeyDown) {
                 startPlaying = true;
                 noteSpawner.trackPlaying = true;
-
+                pressToStartText.FadeOut();
                 musicTrack.Play();
             }
         } else {
