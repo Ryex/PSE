@@ -54,25 +54,8 @@ public class NoteProcessor : MonoBehaviour
         transform.position += direction_ * (travelPerSec * Time.deltaTime);
 
         if (Input.GetKeyDown(keyToPress)) {
-            if(canBePressed) {
-
-                NoteQuality quality;
-                GameObject effectPrefab;
-                if (distance_ > NoteHit.GoodThresh){
-                    quality = NoteQuality.Normal;
-                    effectPrefab = hitEffect;
-                } else if (distance_ > NoteHit.PerfectThresh){
-                    quality = NoteQuality.Good;
-                    effectPrefab = goodEffect;
-                } else {
-                    quality = NoteQuality.Perfect;
-                    effectPrefab = perfectEffect;
-                }
-                
-                Instantiate(effectPrefab, transform.position, effectPrefab.transform.rotation);
-                GameManager.instance.NoteHit(quality);
-                wasHit = true;
-                StartCoroutine(FadeToAndKill(0.0f, 0.2f));
+            if(canBePressed && !wasHit) {
+                noteHit();
             }
         }
 
@@ -85,13 +68,42 @@ public class NoteProcessor : MonoBehaviour
         }
     }
 
+    private void noteHit() {
+        wasHit = true;
+        NoteQuality quality;
+        GameObject effectPrefab;
+        if (distance_ > NoteHit.NormalThresh){
+            noteMiss();
+            return;
+        } else if (distance_ > NoteHit.GoodThresh){
+            quality = NoteQuality.Normal;
+            effectPrefab = hitEffect;
+        } else if (distance_ > NoteHit.PerfectThresh){
+            quality = NoteQuality.Good;
+            effectPrefab = goodEffect;
+        } else {
+            quality = NoteQuality.Perfect;
+            effectPrefab = perfectEffect;
+        }
+        
+        Instantiate(effectPrefab, transform.position, effectPrefab.transform.rotation);
+        GameManager.instance.NoteHit(quality);
+        wasHit = true;
+        StartCoroutine(FadeToAndKill(0.0f, 0.2f));
+    }
+
+    private void noteMiss() {
+        wasHit = true;
+        GameManager.instance.NoteMiss();
+        Instantiate(missEffect, transform.position, missEffect.transform.rotation);
+        StartCoroutine(FadeToAndKill(0.0f, 1.0f));
+    }
+
     private void OnTriggerExit2D(Collider2D other) {
         if (!wasHit) {
             if(other.tag == "Activator") {
                 canBePressed = false;
-                GameManager.instance.NoteMiss();
-                Instantiate(missEffect, transform.position, missEffect.transform.rotation);
-                StartCoroutine(FadeToAndKill(0.0f, 1.0f));
+                noteMiss();
             }
         } 
     }

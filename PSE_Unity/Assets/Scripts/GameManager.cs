@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public struct NoteHit {
-    public const float NormalThresh = 0.5f;
-    public const float GoodThresh = 0.25f;
+    public const float NormalThresh = 0.28f;
+    public const float GoodThresh = 0.15f;
     public const float PerfectThresh = 0.05f;
 }
 
@@ -53,12 +53,15 @@ public class GameManager : MonoBehaviour
     public GameObject resultsScreen;
     public Text percentHitText, normalHitsText, goodHitsText, perfectHitsText, missedText, rankText, finalScoreText;
 
+    public KeyCode debugFastForwardKey;
+
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         setText();
+        currentScore = 0;
     }
 
     // Update is called once per frame
@@ -73,6 +76,13 @@ public class GameManager : MonoBehaviour
                 musicTrack.Play();
             }
         } else {
+            if (Debug.isDebugBuild && Input.GetKeyDown(debugFastForwardKey)) {
+                float fastFastforward = musicTrack.time + (musicTrack.clip.length / 8f);
+                if (fastFastforward > musicTrack.clip.length - 0.01f) {
+                    fastFastforward = musicTrack.clip.length - 0.01f;
+                }
+                musicTrack.time = fastFastforward;
+            }
             if (musicTrack.isPlaying && musicTrack.time >= 0) {
                 noteSpawner.timeInSong = musicTrack.time;
             //Debug.Log("Music position: " + musicTrack.time);
@@ -95,6 +105,8 @@ public class GameManager : MonoBehaviour
         normalHitsText.text = normalHits.ToString();
         goodHitsText.text = goodHits.ToString();
         perfectHitsText.text = perfectHits.ToString();
+
+        missedText.text = totalMisses.ToString();
 
         int totalNotes = totalHits + totalMisses;
 
