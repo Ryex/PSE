@@ -2,18 +2,18 @@
 
 # Current Game Progress
 
-  ## Completed
+## Completed
   
-  ## TODO
+## TODO
   
-    Storyline development, finalization of game mechanics, and finalization of asset design.
+Storyline development, finalization of game mechanics, and finalization of asset design.
 
 # Difficulties
 
-  ## Prior Experience
+## Prior Experience
   
-    In addition to never have designed a game before, most group members have also never touched the Unity game engine.
+In addition to never have designed a game before, most group members have also never touched the Unity game engine.
   
-  ## 'Rona
+## 'Rona
     
-    The introduction of COVID-19 made it impossible to meet in person to complete this assignment, in addition to yielding unforseen consequences with living situations.
+The introduction of COVID-19 made it impossible to meet in person to complete this assignment, in addition to yielding unforseen consequences with living situations.
