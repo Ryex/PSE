@@ -10,14 +10,13 @@ public class TextFadeAndBlink : MonoBehaviour
     float speed = 2.0f;
 
     private IEnumerator blinkEn;
-    private Coroutine blinkCo;
     private Color originalColor;
     void Start()
     {
         Text text = GetComponent<Text>();
         originalColor = text.color;
         blinkEn = Blink(speed);
-        blinkCo = StartCoroutine(blinkEn);
+        StartCoroutine(blinkEn);
     }
 
     // Update is called once per frame
@@ -27,6 +26,9 @@ public class TextFadeAndBlink : MonoBehaviour
     }
 
     public void FadeOut() {
+        StopCoroutine(blinkEn);
+        Text text = GetComponent<Text>();
+        text.color = originalColor;
         StartCoroutine(FadeOutAndDeactivate(0.5f));
     }
     IEnumerator FadeOutAndDeactivate(float aTime)
