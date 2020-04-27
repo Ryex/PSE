@@ -47,6 +47,14 @@ public class NoteSpawner : MonoBehaviour
     public double leadBeatsDefault;
     public bool trackPlaying;
 
+    public NoteProcessor upArrow;
+    public GameObject upTarget;
+    public NoteProcessor rightArrow;
+    public GameObject rightTarget;
+    public NoteProcessor downArrow;
+    public GameObject downTarget;
+    public NoteProcessor leftArrow;
+    public GameObject leftTarget;
     public NoteProcessor upLeftArrow;
     public GameObject upLeftTarget;
     public NoteProcessor upRightArrow;
@@ -131,16 +139,20 @@ public class NoteSpawner : MonoBehaviour
             GameObject target = null;
             switch (nextNote.Value.dir) {
                 case NoteDir.Up:
-                    //Not impl
+                    prefab = upArrow;
+                    target = upTarget;
                     break;
                 case NoteDir.Down:
-                    //Not impl
+                    prefab = downArrow;
+                    target = downTarget;
                     break;
                 case NoteDir.Left:
-                    //Not impl
+                    prefab = leftArrow;
+                    target = leftTarget;
                     break;
                 case NoteDir.Right:
-                    //Not impl
+                    prefab = rightArrow;
+                    target = rightTarget;
                     break;
                 case NoteDir.UpRight:
                     prefab = upRightArrow;
