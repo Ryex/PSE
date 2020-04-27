@@ -18,4 +18,4 @@ In addition to never have designed a game before, most group members have also n
   
 ## 'Rona
     
-The introduction of COVID-19 made it impossible to meet in person to complete this assignment, in addition to yielding unforseen consequences with living situations.
+The introduction of COVID-19 made it impossible to meet in person to complete this assignment, in addition to yielding unforseen consequences with living situations. Because of this, we would be restricted to finding a time to meet virtually, which is also difficult due to the unreliability of internet in Socorro.
