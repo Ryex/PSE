@@ -3,7 +3,23 @@ guid: 1e72d14e97759014184b0f7e502b832f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - upTarget: {instanceID: 0}
+  - rightTarget: {instanceID: 0}
+  - downTarget: {instanceID: 0}
+  - leftTarget: {instanceID: 0}
+  - upArrow: {fileID: 6574805677536179163, guid: f7ef003a804e7d3418bc999c7db86e10,
+      type: 3}
+  - rightArrow: {fileID: 4901488115706282787, guid: e9832aa2436cc984ca94cfe342185856,
+      type: 3}
+  - downArrow: {instanceID: 0}
+  - leftArrow: {fileID: 1740353044292221584, guid: f53f8aefc476d4f479fabaa344109a6c,
+      type: 3}
+  - hitEffect: {instanceID: 0}
+  - goodEffect: {instanceID: 0}
+  - perfectEffect: {instanceID: 0}
+  - missEffect: {instanceID: 0}
+  - noteFile: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

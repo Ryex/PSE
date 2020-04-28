@@ -1747,24 +1747,12 @@ MonoBehaviour:
   rightTarget: {fileID: 335185279}
   downTarget: {fileID: 1954822625}
   leftTarget: {fileID: 450328914}
-  upLeftTarget: {fileID: 42740288}
-  upRightTarget: {fileID: 335185279}
-  downLeftTarget: {fileID: 450328914}
-  downRightTarget: {fileID: 1954822625}
   upArrow: {fileID: 6574805677536179163, guid: f7ef003a804e7d3418bc999c7db86e10, type: 3}
   rightArrow: {fileID: 4901488115706282787, guid: e9832aa2436cc984ca94cfe342185856,
     type: 3}
   downArrow: {fileID: 1282508110810531400, guid: 58b06b11c02ac8c488d69e32bb95f1c7,
     type: 3}
   leftArrow: {fileID: 1740353044292221584, guid: f53f8aefc476d4f479fabaa344109a6c,
-    type: 3}
-  upLeftArrow: {fileID: 6574805677536179163, guid: f7ef003a804e7d3418bc999c7db86e10,
-    type: 3}
-  upRightArrow: {fileID: 4901488115706282787, guid: e9832aa2436cc984ca94cfe342185856,
-    type: 3}
-  downLeftArrow: {fileID: 1740353044292221584, guid: f53f8aefc476d4f479fabaa344109a6c,
-    type: 3}
-  downRightArrow: {fileID: 1282508110810531400, guid: 58b06b11c02ac8c488d69e32bb95f1c7,
     type: 3}
   hitEffect: {fileID: 399198900445072064, guid: 53b291088537aaa43a77c584ff1d7ea2,
     type: 3}
@@ -1774,6 +1762,7 @@ MonoBehaviour:
     type: 3}
   missEffect: {fileID: 9094177938671020949, guid: fa55cec7fe5e4a149ab8d172073198f2,
     type: 3}
+  optionalTint: {r: 0.100302614, g: 0.79650784, b: 0.9245283, a: 1}
   noteFile: {fileID: 4900000, guid: 24019b908257cb74fab37f802490a60b, type: 3}
   timeInSong: 0
 --- !u!4 &1554773332

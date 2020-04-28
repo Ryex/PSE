@@ -6,7 +6,7 @@ public class EffectObject : MonoBehaviour
 {
 
 
-    public float lifetime = 0.98f;
+    public float lifetime = 0.90f;
 
     public bool dieing;
 
@@ -27,13 +27,13 @@ public class EffectObject : MonoBehaviour
 
     IEnumerator FadeToAndKill(float aValue, float aTime)
      {
-         float alpha = transform.GetComponent<SpriteRenderer>().material.color.a;
-         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
-         {
-             Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
-             transform.GetComponent<SpriteRenderer>().material.color = newColor;
-             yield return null;
-         }
+        Color c = transform.GetComponent<SpriteRenderer>().material.color;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(c.r, c.g, c.b, Mathf.Lerp(c.a, aValue, t));
+            transform.GetComponent<SpriteRenderer>().material.color = newColor;
+            yield return null;
+        }
          Destroy(gameObject);
      }
 }

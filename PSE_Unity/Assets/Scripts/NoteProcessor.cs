@@ -10,9 +10,9 @@ public class NoteProcessor : MonoBehaviour
     public float distance_;
     public Vector3 direction_;
     public float StartDistance;
-    public double leadTimeBeats;
-    public double beatsPerMin;
-    public double leadTimeSec;
+    public float leadTimeBeats;
+    public float beatsPerMin;
+    public float leadTimeSec;
 
     public float travelPerSec;
 
@@ -22,6 +22,8 @@ public class NoteProcessor : MonoBehaviour
 
     public bool wasHit;
 
+    public Color tintColor;
+
 
     public GameObject hitEffect, goodEffect, perfectEffect, missEffect;
 
@@ -30,7 +32,7 @@ public class NoteProcessor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        setupStartValues();
+        tintColor = transform.GetComponent<SpriteRenderer>().material.color;
     }
 
 
@@ -39,10 +41,12 @@ public class NoteProcessor : MonoBehaviour
         var heading = Target.transform.position - transform.position;
 
         StartDistance = distance_ = heading.magnitude;
-        leadTimeSec = leadTimeBeats * (beatsPerMin / 60f);
+        leadTimeSec = leadTimeBeats / (beatsPerMin / 60f) ;
         travelPerSec = StartDistance / (float)leadTimeSec;
 
         direction_ = heading / distance_; // normalized direction
+
+        FadeIn(leadTimeSec / 2f);
     }
     // Update is called once per frame
     void Update()
@@ -61,6 +65,10 @@ public class NoteProcessor : MonoBehaviour
 
     }
 
+    public void SetColor(Color c) {
+        tintColor = c;
+        transform.GetComponent<SpriteRenderer>().material.color = c;
+    }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Activator") {
@@ -89,14 +97,14 @@ public class NoteProcessor : MonoBehaviour
         Instantiate(effectPrefab, transform.position, effectPrefab.transform.rotation);
         GameManager.instance.NoteHit(quality);
         wasHit = true;
-        StartCoroutine(FadeToAndKill(0.0f, 0.2f));
+        FadeToAndKill(0.0f, 0.2f);
     }
 
     private void noteMiss() {
         wasHit = true;
         GameManager.instance.NoteMiss();
         Instantiate(missEffect, transform.position, missEffect.transform.rotation);
-        StartCoroutine(FadeToAndKill(0.0f, 1.0f));
+        FadeToAndKill(0.0f, 1.0f);
     }
 
     private void OnTriggerExit2D(Collider2D other) {
@@ -109,15 +117,26 @@ public class NoteProcessor : MonoBehaviour
     }
 
 
-    IEnumerator FadeToAndKill(float aValue, float aTime)
-     {
-         float alpha = transform.GetComponent<SpriteRenderer>().material.color.a;
-         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
-         {
-             Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
-             transform.GetComponent<SpriteRenderer>().material.color = newColor;
-             yield return null;
-         }
-         Destroy(gameObject);
-     }
+    private void FadeToAndKill(float aValue, float aTime)
+    {
+        StartCoroutine(FadeTo(aValue,aTime));
+        Destroy(gameObject, aTime);
+    }
+
+    private void FadeIn(float time) {
+        Color c = tintColor;
+        transform.GetComponent<SpriteRenderer>().material.color = new Color(c.r, c.g, c.b, 0);
+        StartCoroutine(FadeTo(1.0f, time));
+    }
+
+    IEnumerator FadeTo(float aValue, float aTime)
+    {
+        Color c = transform.GetComponent<SpriteRenderer>().material.color;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(c.r, c.g, c.b, Mathf.Lerp(c.a, aValue, t));
+            transform.GetComponent<SpriteRenderer>().material.color = newColor;
+            yield return null;
+        }
+    }
 }

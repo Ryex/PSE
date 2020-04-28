@@ -5,30 +5,30 @@ using UnityEngine;
 public enum NoteDir
 {
     Up = 0,
-    UpRight = 1,
+    UpOp = 1,
     Right = 2,
-    DownRight = 3,
+    RightOp = 3,
     Down = 4,
-    DownLeft = 5,
+    DownOp = 5,
     Left = 6,
-    UpLeft = 7,
+    LeftOp = 7,
     
 }
 
 public struct Note {
-    public double time;
+    public float time;
     public NoteDir dir;
-    public double leadBeats;
-    public double beatsPerMinute;
+    public float leadBeats;
+    public float beatsPerMinute;
 
-    public Note(double t, NoteDir d, double lb, double bpm) {
+    public Note(float t, NoteDir d, float lb, float bpm) {
         time = t;
         dir = d;
         leadBeats = lb;
         beatsPerMinute = bpm;
     }
 
-    public Note(double t, int d, double lb, double bpm) {
+    public Note(float t, int d, float lb, float bpm) {
         time = t;
         dir = (NoteDir)d;
         leadBeats = lb;
@@ -43,18 +43,18 @@ public struct Note {
 
 public class NoteSpawner : MonoBehaviour
 {
-    public double beatsPerMinute;
-    public double leadBeatsDefault;
+    public float beatsPerMinute;
+    public float leadBeatsDefault;
     public bool trackPlaying;
 
-    public GameObject upTarget, rightTarget, downTarget, leftTarget, 
-        upLeftTarget, upRightTarget, downLeftTarget, downRightTarget;
+    public GameObject upTarget, rightTarget, downTarget, leftTarget;
 
-    public NoteProcessor upArrow, rightArrow, downArrow, leftArrow, 
-        upLeftArrow, upRightArrow, downLeftArrow, downRightArrow;
+    public NoteProcessor upArrow, rightArrow, downArrow, leftArrow;
     
 
     public GameObject hitEffect, goodEffect, perfectEffect, missEffect;
+
+    public Color optionalTint;
 
     private double updateRate;
 
@@ -79,23 +79,25 @@ public class NoteSpawner : MonoBehaviour
         foreach (var noteLine in noteLines) {
             var noteData  = (noteLine.Trim()).Split(","[0]);
 
-            double t = 0, lb = leadBeatsDefault, bpm = beatsPerMinute;
-            NoteDir d = NoteDir.UpRight;
+            float t = 0, b = 0, lb = leadBeatsDefault, bpm = beatsPerMinute;
+            NoteDir d = NoteDir.Up;
             switch (noteData.Length) {
                 case 4:
-                    bpm = double.Parse(noteData[3]);
+                    bpm = float.Parse(noteData[3]);
                     goto case 3;
                 case 3:
-                    lb = double.Parse(noteData[2]);
+                    lb = float.Parse(noteData[2]);
                     goto case 2;
                 case 2:
-                    t = double.Parse(noteData[0]);
+                    b = float.Parse(noteData[0]);
                     d = (NoteDir)int.Parse(noteData[1]);
                     break;
                 default:
                     Debug.Log($"Bad line in notes CSV [{i}]: {noteLine}");
                     continue;
             }
+            float bps = bpm / 60f;
+            t = bps * b;
             var note = new Note(t, d, lb, bpm);
             songNotes.Add(note);
             i++;
@@ -129,6 +131,7 @@ public class NoteSpawner : MonoBehaviour
         if (nextNote.HasValue) {
             NoteProcessor prefab = null;
             GameObject target = null;
+            bool optional = false;
             switch (nextNote.Value.dir) {
                 case NoteDir.Up:
                     prefab = upArrow;
@@ -146,21 +149,25 @@ public class NoteSpawner : MonoBehaviour
                     prefab = rightArrow;
                     target = rightTarget;
                     break;
-                case NoteDir.UpRight:
-                    prefab = upRightArrow;
-                    target = upRightTarget;
+                case NoteDir.UpOp:
+                    prefab = upArrow;
+                    target = upTarget;
+                    optional = true;
                     break;
-                case NoteDir.UpLeft:
-                    prefab = upLeftArrow;
-                    target = upLeftTarget;
+                case NoteDir.RightOp:
+                    prefab = rightArrow;
+                    target = rightTarget;
+                    optional = true;
                     break;
-                case NoteDir.DownRight:
-                    prefab = downRightArrow;
-                    target = downRightTarget;
+                case NoteDir.DownOp:
+                    prefab = downArrow;
+                    target = downTarget;
+                    optional = true;
                     break;
-                case NoteDir.DownLeft:
-                    prefab = downLeftArrow;
-                    target = downLeftTarget;
+                case NoteDir.LeftOp:
+                    prefab = leftArrow;
+                    target = leftTarget;
+                    optional = true;
                     break;
                 default:
                     // Unknown error?
@@ -172,13 +179,21 @@ public class NoteSpawner : MonoBehaviour
                 noteObj.Target = target;
                 noteObj.beatsPerMin = nextNote.Value.beatsPerMinute;
                 noteObj.leadTimeBeats = nextNote.Value.leadBeats;
-                noteObj.setupStartValues();
-                noteObj.gameObject.SetActive(true);
 
                 noteObj.hitEffect = hitEffect;
                 noteObj.goodEffect = goodEffect;
                 noteObj.perfectEffect = perfectEffect;
                 noteObj.missEffect = missEffect;
+
+                if (optional) {
+                    noteObj.SetColor(optionalTint);
+                }
+                
+
+                noteObj.setupStartValues();
+                noteObj.gameObject.SetActive(true);
+
+                
             }
             
             popNextNote();
