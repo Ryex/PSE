@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         missedText.text = totalMisses.ToString();
 
-        int totalNotes = totalHits + totalMisses;
+        int totalNotes = noteSpawner.totalNotes;
 
         float percentHit = ((float)totalHits / (float)totalNotes) * 100f;
 
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         hitsText.text = $"Hits: {totalHits} | Misses: {totalMisses}";
     }
 
-    public void NoteHit(NoteQuality quality) {
+    public void NoteHit(NoteQuality quality, bool optional) {
         Debug.Log("Note HIT");
 
         switch (quality) {
@@ -171,9 +171,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void NoteMiss() {
+    public void NoteMiss(bool optional) {
         Debug.Log("Note MISS");
-        currentScore -= missPenalty;
+        if (!optional) {
+            currentScore -= missPenalty;
+        }
         totalMisses += 1;
     }
 }

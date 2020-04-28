@@ -6,7 +6,7 @@ public class EffectObject : MonoBehaviour
 {
 
 
-    public float lifetime = 0.90f;
+    public float lifetime = 0.6f;
 
     public bool dieing;
 
@@ -21,12 +21,18 @@ public class EffectObject : MonoBehaviour
     {
         if (!dieing) {
             dieing = true;
-            StartCoroutine(FadeToAndKill(0.0f, lifetime));
+            FadeToAndKill(0.0f, lifetime);
         }
     }
 
-    IEnumerator FadeToAndKill(float aValue, float aTime)
-     {
+    private void FadeToAndKill(float aValue, float aTime)
+    {
+        StartCoroutine(FadeTo(aValue,aTime));
+        Destroy(gameObject, aTime);
+    }
+
+    IEnumerator FadeTo(float aValue, float aTime)
+    {
         Color c = transform.GetComponent<SpriteRenderer>().material.color;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
@@ -34,6 +40,5 @@ public class EffectObject : MonoBehaviour
             transform.GetComponent<SpriteRenderer>().material.color = newColor;
             yield return null;
         }
-         Destroy(gameObject);
-     }
+    }
 }

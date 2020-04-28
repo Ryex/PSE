@@ -65,6 +65,7 @@ public class NoteSpawner : MonoBehaviour
     public Note? nextNote;
 
     public double timeInSong;
+    public int totalNotes;
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +104,8 @@ public class NoteSpawner : MonoBehaviour
             i++;
         }
 
+        totalNotes = songNotes.Count;
+        Debug.Log("Total Song notes: " + totalNotes);
         Debug.Log("Song notes (presort): " + string.Join("\n ", songNotes));
 
         songNotes.Sort((n1, n2) => n1.time.CompareTo(n2.time));
@@ -187,6 +190,7 @@ public class NoteSpawner : MonoBehaviour
 
                 if (optional) {
                     noteObj.SetColor(optionalTint);
+                    noteObj.optionalNote = true;
                 }
                 
 

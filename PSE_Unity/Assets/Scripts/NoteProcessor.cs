@@ -23,6 +23,7 @@ public class NoteProcessor : MonoBehaviour
     public bool wasHit;
 
     public Color tintColor;
+    public bool optionalNote;
 
 
     public GameObject hitEffect, goodEffect, perfectEffect, missEffect;
@@ -33,6 +34,7 @@ public class NoteProcessor : MonoBehaviour
     void Start()
     {
         tintColor = transform.GetComponent<SpriteRenderer>().material.color;
+        optionalNote = false;
     }
 
 
@@ -95,16 +97,16 @@ public class NoteProcessor : MonoBehaviour
         }
         
         Instantiate(effectPrefab, transform.position, effectPrefab.transform.rotation);
-        GameManager.instance.NoteHit(quality);
+        GameManager.instance.NoteHit(quality, optionalNote);
         wasHit = true;
         FadeToAndKill(0.0f, 0.2f);
     }
 
     private void noteMiss() {
         wasHit = true;
-        GameManager.instance.NoteMiss();
+        GameManager.instance.NoteMiss(optionalNote);
         Instantiate(missEffect, transform.position, missEffect.transform.rotation);
-        FadeToAndKill(0.0f, 1.0f);
+        FadeToAndKill(0.0f, 0.5f);
     }
 
     private void OnTriggerExit2D(Collider2D other) {

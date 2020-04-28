@@ -1741,7 +1741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beatsPerMinute: 120
-  leadBeatsDefault: 2
+  leadBeatsDefault: 4
   trackPlaying: 0
   upTarget: {fileID: 42740288}
   rightTarget: {fileID: 335185279}
@@ -1765,6 +1765,7 @@ MonoBehaviour:
   optionalTint: {r: 0.100302614, g: 0.79650784, b: 0.9245283, a: 1}
   noteFile: {fileID: 4900000, guid: 24019b908257cb74fab37f802490a60b, type: 3}
   timeInSong: 0
+  totalNotes: 0
 --- !u!4 &1554773332
 Transform:
   m_ObjectHideFlags: 0
