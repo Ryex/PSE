@@ -177,7 +177,7 @@ MonoBehaviour:
   debugFastForwardKey: 92
   trackTargetVolume: 0.6
   trackFadeInTime: 0.9
-  trackStartTime: 0.8
+  trackStartTime: 1.2
 --- !u!4 &35917315
 Transform:
   m_ObjectHideFlags: 0
@@ -1780,8 +1780,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2125296781}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1601014004
 GameObject:
@@ -2918,7 +2918,6 @@ Transform:
   - {fileID: 42740290}
   - {fileID: 335185281}
   - {fileID: 1954822627}
-  - {fileID: 1554773332}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
