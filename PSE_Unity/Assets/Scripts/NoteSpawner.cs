@@ -98,7 +98,7 @@ public class NoteSpawner : MonoBehaviour
                     continue;
             }
             float bps = bpm / 60f;
-            t = bps * b;
+            t = bps * (b - lb);
             var note = new Note(t, d, lb, bpm);
             songNotes.Add(note);
             i++;

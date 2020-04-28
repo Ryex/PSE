@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
 
     public KeyCode debugFastForwardKey;
 
+    public float trackTargetVolume = 0.6f;
+    public float trackFadeInTime = 2.4f;
+    public float trackStartTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         setText();
         currentScore = 0;
+        musicTrack.volume = 0;
     }
 
     // Update is called once per frame
@@ -73,7 +78,9 @@ public class GameManager : MonoBehaviour
                 startPlaying = true;
                 noteSpawner.trackPlaying = true;
                 pressToStartText.FadeOut();
+                musicTrack.time = trackStartTime;
                 musicTrack.Play();
+                StartCoroutine(FadeTrack(trackTargetVolume, trackFadeInTime));
             }
         } else {
             if (Debug.isDebugBuild && Input.GetKeyDown(debugFastForwardKey)) {
@@ -177,5 +184,15 @@ public class GameManager : MonoBehaviour
             currentScore -= missPenalty;
         }
         totalMisses += 1;
+    }
+
+    IEnumerator FadeTrack(float vValue, float fTime)
+    {
+        float startVol = musicTrack.volume;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / fTime)
+        {
+            musicTrack.volume = Mathf.Lerp(startVol, vValue, t);
+            yield return null;
+        }
     }
 }
