@@ -163,6 +163,8 @@ MonoBehaviour:
   normalHits: 0
   perfectHits: 0
   totalMisses: 0
+  hitSound: {fileID: 8300000, guid: 7c0e502e561fac845a77c359cb002ad5, type: 3}
+  missSound: {fileID: 8300000, guid: b96665777400a7d42aaf5d9a5fb70388, type: 3}
   scoreText: {fileID: 1791990394}
   hitsText: {fileID: 2046179001}
   pressToStartText: {fileID: 1603118079}

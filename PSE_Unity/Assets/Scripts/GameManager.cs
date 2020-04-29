@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public int missPenalty = 75;
 
     public int totalHits, goodHits, normalHits, perfectHits, totalMisses;
+    public AudioClip hitSound, missSound;
 
     public Text scoreText, hitsText;
 
@@ -175,6 +176,8 @@ public class GameManager : MonoBehaviour
 
         totalHits += 1;
 
+        musicTrack.PlayOneShot(hitSound);
+
 
     }
 
@@ -184,6 +187,8 @@ public class GameManager : MonoBehaviour
             currentScore -= missPenalty;
         }
         totalMisses += 1;
+
+        musicTrack.PlayOneShot(missSound);
     }
 
     IEnumerator FadeTrack(float vValue, float fTime)
