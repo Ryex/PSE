@@ -97,7 +97,7 @@ public class NoteSpawner : MonoBehaviour
                     Debug.Log($"Bad line in notes CSV [{i}]: {noteLine}");
                     continue;
             }
-            float bps = bpm / 60f;
+            float bps = 60f / bpm;
             t = bps * (b - lb);
             var note = new Note(t, d, lb, bpm);
             songNotes.Add(note);
