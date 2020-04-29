@@ -178,8 +178,8 @@ MonoBehaviour:
   finalScoreText: {fileID: 745663033}
   debugFastForwardKey: 92
   trackTargetVolume: 0.6
-  trackFadeInTime: 0.9
-  trackStartTime: 1.2
+  trackFadeInTime: 1
+  trackStartTime: 0
 --- !u!4 &35917315
 Transform:
   m_ObjectHideFlags: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e72d14e97759014184b0f7e502b832f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatsPerMinute: 120
+  beatsPerMinute: 196
   leadBeatsDefault: 4
   trackPlaying: 0
   upTarget: {fileID: 42740288}
