@@ -45,6 +45,7 @@ public class NoteSpawner : MonoBehaviour
 {
     public float beatsPerMinute;
     public float leadBeatsDefault;
+    public float globalBeatOffset;
     public bool trackPlaying;
 
     public GameObject upTarget, rightTarget, downTarget, leftTarget;
@@ -98,7 +99,7 @@ public class NoteSpawner : MonoBehaviour
                     continue;
             }
             float bps = 60f / bpm;
-            t = bps * (b - lb);
+            t = bps * (b - lb + globalBeatOffset);
             var note = new Note(t, d, lb, bpm);
             songNotes.Add(note);
             i++;
